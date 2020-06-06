@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node build/index.js",
+    "build": "npm run remove:build && babel index.js -d build && babel server -d build/server",
+    "remove:build": "rm -rf ./build",
     "dev": "nodemon --exec babel-node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -26,6 +30,7 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "@babel/runtime": "^7.10.2",
     "@hapi/joi": "^17.1.1",
     "app-root-path": "^3.0.0",
     "cors": "^2.8.5",
