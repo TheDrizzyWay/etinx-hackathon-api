@@ -17,7 +17,7 @@ const options = {
       timestamp(),
       logFormat
     ),
-    maxsize: 5242880, // 5MB
+    maxsize: 5242880,
     maxFiles: 5,
     colorize: false
   },
@@ -29,7 +29,7 @@ const options = {
       timestamp(),
       logFormat
     ),
-    maxsize: 5242880, // 5MB
+    maxsize: 5242880,
     maxFiles: 5,
     colorize: false
   },
@@ -52,7 +52,6 @@ export const logger = createLogger({
   exitOnError: false
 });
 
-// If we're not in production then log to the `console` with the format:
 if (environment !== 'production') {
   logger.add(
     new transports.Console({

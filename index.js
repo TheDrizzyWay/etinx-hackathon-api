@@ -16,7 +16,7 @@ app.use('/api/v1', router);
 dbConnect.on('error', logger.error.bind(console, 'MongoDB connection error:'));
 
 app.use('*', (req, res) => {
-  res.status(200).json({ message: 'If you are lost, use the docs.' });
+  res.status(404).json({ message: 'If you are lost, use the docs.' });
 });
 
 app.listen(port, () => logger.info(`server running on port ${port}`));
