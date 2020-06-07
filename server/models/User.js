@@ -8,7 +8,7 @@ const userSchema = new Schema({
   isActivated: { type: Boolean, default: false },
   passwordResetToken: { type: String, default: null }
 },
-{ timestamps: { createdAt: 'createdAt' } });
+{ timestamps: true });
 
 const User = model('User', userSchema);
 

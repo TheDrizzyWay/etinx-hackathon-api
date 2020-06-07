@@ -5,7 +5,7 @@ const todoSchema = new Schema({
   completed: { type: Boolean, required: true },
   userId: {type: Schema.Types.ObjectId, required: true, ref: 'User' }
 },
-{ timestamps: { createdAt: 'createdAt' } });
+{ timestamps: true });
 
 const Todo = model('Todo', todoSchema);
 

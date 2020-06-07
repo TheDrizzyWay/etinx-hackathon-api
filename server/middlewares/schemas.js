@@ -6,3 +6,8 @@ export const signupSchema = {
   email: Joi.string().email().required().trim(),
   password: Joi.string().min(6).max(24).required().trim()
 };
+
+export const verifySchema = {
+  email: Joi.string().email().required().trim(),
+  token: Joi.string().required().trim()
+};

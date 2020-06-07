@@ -3,6 +3,7 @@ import User from '../models/User';
 import Token from '../models/Token';
 import PasswordUtil from '../utils/passwords';
 import { signupEmail } from '../utils/emails';
+import JwtUtil from '../utils/jwt';
 
 class AuthController {
     static async signUp(req, res) {
@@ -12,8 +13,7 @@ class AuthController {
             return res.status(409).json({ error: 'An account with this email already exists' });
         }
     
-        const hashedPassword = PasswordUtil.hash(password);
-        req.body.password = hashedPassword;
+        req.body.password = PasswordUtil.hash(password);
 
         const user = new User(req.body);
         await user.save();
@@ -29,6 +29,31 @@ class AuthController {
         return res.status(201).json({
             message: 'Your account was created successfully', 
             data: { firstName, email }
+        });
+    }
+
+    static async verifyAccount(req, res) {
+        const { email, token } = req.body;
+        const user = await User.findOne({ email }, { password: 0 });
+
+        if(!user) {
+            return res.status(404).json({ error: 'An account with this email does not exist' });
+        }
+        if(user.isActivated) {
+            return res.status(400).json({ error: 'This account is already activated' });
+        }
+
+        const userToken = await Token.findOne({ $and: [{ userId: user.id }, { token }] });
+
+        if(!userToken) {
+            return res.status(400).json({ error: 'Invalid or expired token '});
+        }
+
+        await user.updateOne({ isActivated: true });
+        return res.status(200).json({
+            message: 'Account verified', 
+            data: { ...user._doc, isActivated: true },
+            auth: JwtUtil.generateToken({ ...user._doc })
         });
     }
 }
