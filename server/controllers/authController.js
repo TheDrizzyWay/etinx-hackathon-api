@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import User from '../models/User';
 import Token from '../models/Token';
 import PasswordUtil from '../utils/passwords';
-import { signupEmail } from '../utils/emails';
+import { signupEmail, forgetPasswordEmail } from '../utils/emails';
 import JwtUtil from '../utils/jwt';
 
 class AuthController {
@@ -77,6 +77,18 @@ class AuthController {
             data: userObject,
             auth: JwtUtil.generateToken(userObject)
         });
+    }
+
+    static async forgetPassword(req, res) {
+        const { email } = req.body;
+        const token = JwtUtil.generateToken({ email });
+        const user = await User.findOneAndUpdate({ email }, { passwordResetToken: token });
+
+        if (!user) return res.status(404).json({ error: 'This email is not in our records' });
+
+        const resetLink = `frontendurl/reset?token=${token}`;
+        forgetPasswordEmail(email, resetLink);
+        return res.status(200).send({ message: 'Check your email for the next step' });
     }
 }
 

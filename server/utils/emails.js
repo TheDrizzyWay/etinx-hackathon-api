@@ -1,6 +1,6 @@
 import sgMail from '@sendgrid/mail';
 import nodemailer from 'nodemailer';
-import { environment, emailUser, emailPass } from '../config/variables';
+import { environment, emailUser, emailPass, sendgridKey } from '../config/variables';
 
 const sendEmail = async (to, subject, message) => {
   if (environment === 'development') {
@@ -19,7 +19,7 @@ const sendEmail = async (to, subject, message) => {
     };
     await transporter.sendMail(mailOptions);
   } else {
-    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    sgMail.setApiKey(sendgridKey);
     const msg = {
       to,
       from: 'no-reply@etinxhackathon.com',
@@ -37,3 +37,12 @@ export const signupEmail = (email, link, name) => {
   const subject = 'Welcome';
   sendEmail(email, subject, body);
 };
+
+export const forgetPasswordEmail = (email, link) => {
+  const body = `<p>You requested for a password reset</p>
+  <p>follow this link to reset your password <a href=${link}>Reset my password</a></p>
+  <br><b>Please note that this link expires in 12hours and you can only use it once</b>
+  <p>If you didn't request for a password reset, ignore this email.</p>`;
+  const subject = 'Reset Password';
+  sendEmail(email, subject, body);
+}

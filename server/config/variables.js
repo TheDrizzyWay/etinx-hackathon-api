@@ -8,3 +8,4 @@ export const environment = process.env.NODE_ENV;
 export const jwtSecret = process.env.JWT_SECRET;
 export const emailUser = process.env.EMAIL_USER;
 export const emailPass = process.env.EMAIL_PASSWORD;
+export const sendgridKey = process.env.SENDGRID_API_KEY;
