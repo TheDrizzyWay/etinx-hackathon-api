@@ -41,7 +41,7 @@ export const signupEmail = (email, link, name) => {
 export const forgetPasswordEmail = (email, link) => {
   const body = `<p>You requested for a password reset</p>
   <p>follow this link to reset your password <a href=${link}>Reset my password</a></p>
-  <br><b>Please note that this link expires in 12hours and you can only use it once</b>
+  <br><b>Please note that this link expires in 24hours and you can only use it once</b>
   <p>If you didn't request for a password reset, ignore this email.</p>`;
   const subject = 'Reset Password';
   sendEmail(email, subject, body);

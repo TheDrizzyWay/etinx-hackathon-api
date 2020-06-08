@@ -20,3 +20,8 @@ export const loginSchema = {
 export const forgetSchema = {
   email: Joi.string().email().required().trim()
 };
+
+export const resetSchema = {
+  password: Joi.string().min(6).max(24).required().trim(),
+  token: Joi.string().required()
+}

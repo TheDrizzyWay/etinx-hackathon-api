@@ -1,4 +1,4 @@
-import { signupSchema, verifySchema, loginSchema, forgetSchema } from './schemas';
+import { signupSchema, verifySchema, loginSchema, forgetSchema, resetSchema } from './schemas';
 import validator from '../utils/validator';
 
 class AuthValidation {
@@ -22,6 +22,12 @@ class AuthValidation {
 
     static forget(req, res, next) {
         const error = validator(req.body, forgetSchema);
+        if (error) return res.status(400).json({ error });
+        return next();
+    }
+
+    static reset(req, res, next) {
+        const error = validator(req.body, resetSchema);
         if (error) return res.status(400).json({ error });
         return next();
     }

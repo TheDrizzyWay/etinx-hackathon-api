@@ -88,7 +88,22 @@ class AuthController {
 
         const resetLink = `frontendurl/reset?token=${token}`;
         forgetPasswordEmail(email, resetLink);
-        return res.status(200).send({ message: 'Check your email for the next step' });
+        return res.status(200).json({ message: 'Check your email for the next step' });
+    }
+
+    static async resetPassword(req, res) {
+        const { password, token } = req.body;
+        const decoded = JwtUtil.verifyToken(token);
+
+        if(!decoded) return res.status(400).json({ error: 'Invalid token' });
+
+        const user = await User.findOneAndUpdate({ 
+            $and: [{ email: decoded.email }, { passwordResetToken: token }] }, 
+            { password: PasswordUtil.hash(password), passwordResetToken: null });
+
+        if (!user) return res.status(400).json({ error: 'This email is not in our records' });
+
+        return res.status(200).send({ success: 'Password changed successfully' });
     }
 }
 
