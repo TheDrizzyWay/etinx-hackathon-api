@@ -52,8 +52,8 @@ class AuthController {
         await user.updateOne({ isActivated: true });
         return res.status(200).json({
             message: 'Account verified', 
-            data: { ...user._doc, isActivated: true },
-            auth: JwtUtil.generateToken({ ...user._doc })
+            data: { ...user.toJSON(), isActivated: true },
+            auth: JwtUtil.generateToken({ ...user.toJSON() })
         });
     }
 
