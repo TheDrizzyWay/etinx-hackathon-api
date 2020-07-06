@@ -69,7 +69,7 @@ class AuthController {
             return res.status(400).json({ error: 'Invalid password' });
         }
 
-        const userObject = { ...user._doc };
+        const userObject = user.toJSON();
         delete userObject.password;
 
         return res.status(200).json({
