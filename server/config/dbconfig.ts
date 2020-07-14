@@ -1,10 +1,12 @@
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 import { databaseUrl } from './variables';
+
+type mongooseType = typeof mongoose;
 
 const opts = { useNewUrlParser: true, connectTimeoutMS: 10000, useFindAndModify: false, useUnifiedTopology: true };
 mongoose.set('useCreateIndex', true);
 mongoose.connect(databaseUrl, opts);
-mongoose.Promise = global.Promise;
+(<mongooseType>mongoose).Promise = global.Promise;
 const dbConnect = mongoose.connection;
 
 export default dbConnect;

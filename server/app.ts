@@ -10,15 +10,18 @@ class App {
 
   constructor() {
     this.app = express();
-    this.config();        
+    this.config();
+    this.mountRoutes();    
   }
 
   private config(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(cors());
-    this.app.use('/api/v1', router);
+  }
 
+  private mountRoutes(): void {
+    this.app.use('/api/v1', router);
     this.app.use('*', (req, res) => {
         res.status(404).json({ message: 'If you are lost, use the docs.' });
     });

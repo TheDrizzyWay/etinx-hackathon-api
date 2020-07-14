@@ -29,6 +29,7 @@
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@types/cors": "^2.8.6",
+    "@types/mongoose": "^5.7.31",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2"
   },
