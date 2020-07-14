@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi';
+import * as Joi from '@hapi/joi';
 
 export const signupSchema = {
   firstName: Joi.string().min(2).max(30).required().trim(),
