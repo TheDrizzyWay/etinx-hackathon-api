@@ -1,13 +1,13 @@
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { jwtSecret } from '../config/variables';
 
 class JwtUtil {
-  static generateToken(payload) {
+  static generateToken(payload: any) {
     const token = jwt.sign(payload, jwtSecret, { expiresIn: '1d' });
     return token;
   }
 
-  static verifyToken(token) {
+  static verifyToken(token: string) {
     const decoded = jwt.verify(token, jwtSecret);
     return decoded;
   }

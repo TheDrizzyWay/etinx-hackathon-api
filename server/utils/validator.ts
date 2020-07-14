@@ -1,8 +1,8 @@
-import Joi from '@hapi/joi';
+import * as Joi from '@hapi/joi';
 
-const joiFormatter = str => str.split('"').join('');
+const joiFormatter = (str: string) => str.split('"').join('');
 
-export const validator = (data, schema) => {
+export const validator = (data: object, schema: object) => {
   const { error } = Joi.object(schema).validate(data);
   if (!error) return null;
   const { message } = error.details[0];

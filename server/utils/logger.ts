@@ -1,4 +1,4 @@
-import appRoot from 'app-root-path';
+import * as appRoot from 'app-root-path';
 import {
   config, createLogger, format, transports
 } from 'winston';

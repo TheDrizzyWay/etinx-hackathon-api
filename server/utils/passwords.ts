@@ -1,11 +1,11 @@
-import bcrypt from 'bcryptjs';
+import * as bcrypt from 'bcryptjs';
 
 class PasswordUtil {
-  static hash(password) {
+  static hash(password: string) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   }
 
-  static compare(password, hashPassword) {
+  static compare(password: string, hashPassword: string) {
     return bcrypt.compareSync(password, hashPassword);
   }
 }
