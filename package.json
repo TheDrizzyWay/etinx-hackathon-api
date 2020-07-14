@@ -28,6 +28,7 @@
     "@babel/node": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
+    "@types/cors": "^2.8.6",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2"
   },
@@ -44,6 +45,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.18",
     "nodemailer": "^6.4.8",
+    "typescript": "^3.9.6",
     "winston": "^3.2.1"
   }
 }
