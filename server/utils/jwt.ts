@@ -7,7 +7,7 @@ class JwtUtil {
     return token;
   }
 
-  static verifyToken(token: string): string | object {
+  static verifyToken(token: string): any {
     const decoded = jwt.verify(token, jwtSecret);
     return decoded;
   }

@@ -1,4 +1,5 @@
-import crypto from 'crypto';
+import * as crypto from 'crypto';
+import { Request, Response } from 'express';
 import User from '../models/User';
 import Token from '../models/Token';
 import PasswordUtil from '../utils/passwords';
@@ -6,7 +7,7 @@ import { signupEmail, forgetPasswordEmail } from '../utils/emails';
 import JwtUtil from '../utils/jwt';
 
 class AuthController {
-    static async signUp(req, res) {
+    static async signUp(req: Request, res: Response) {
         const { firstName, email, password } = req.body;
         const findUser = await User.findOne({ email });
         if (findUser) {
@@ -32,7 +33,7 @@ class AuthController {
         });
     }
 
-    static async verifyAccount(req, res) {
+    static async verifyAccount(req: Request, res: Response) {
         const { email, token } = req.body;
         const user = await User.findOne({ email }, { password: 0 });
 
@@ -57,7 +58,7 @@ class AuthController {
         });
     }
 
-    static async login(req, res) {
+    static async login(req: Request, res: Response) {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
 
@@ -79,7 +80,7 @@ class AuthController {
         });
     }
 
-    static async forgetPassword(req, res) {
+    static async forgetPassword(req: Request, res: Response) {
         const { email } = req.body;
         const token = JwtUtil.generateToken({ email });
         const user = await User.findOneAndUpdate({ email }, { passwordResetToken: token });
@@ -91,7 +92,7 @@ class AuthController {
         return res.status(200).json({ message: 'Check your email for the next step' });
     }
 
-    static async resetPassword(req, res) {
+    static async resetPassword(req: Request, res: Response) {
         const { password, token } = req.body;
         const decoded = JwtUtil.verifyToken(token);
 
