@@ -8,13 +8,14 @@ services:
     volumes:
       - /app/node_modules 
       - ./api:/app 
-  # client:
-  #   build:
-  #     dockerfile: Dockerfile
-  #     context: ./client
-  #   volumes:
-  #     - /app/node_modules
-  #     - ./client:/app 
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    env_file: ./client/.env
+    volumes:
+      - /app/node_modules
+      - ./client:/app 
   nginx:
     restart: always
     build:
