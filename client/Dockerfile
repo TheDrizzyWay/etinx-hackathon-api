@@ -1,11 +1,11 @@
 FROM node:alpine as builder
-WORKDIR "/app"
+WORKDIR "."
 COPY ./package.json .
-RUN npm install -g yarn
+RUN npm install yarn
 RUN yarn install
 COPY . .
 RUN yarn run build
 FROM nginx
 EXPOSE 3000
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY - from=builder /app/build /usr/share/nginx/html
+COPY --from=builder ./build /usr/share/nginx/html

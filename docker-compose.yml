@@ -7,15 +7,7 @@ services:
     env_file: ./api/.env
     volumes:
       - /app/node_modules 
-      - ./api:/app 
-  client:
-    build:
-      dockerfile: Dockerfile
-      context: ./client
-    env_file: ./client/.env
-    volumes:
-      - /app/node_modules
-      - ./client:/app 
+      - ./api:/app
   nginx:
     restart: always
     build:
@@ -25,3 +17,11 @@ services:
         - api
     ports:
       - "5000:80"
+  client:
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    env_file: ./client/.env
+    volumes:
+      - /app/node_modules
+      - ./client:/app
