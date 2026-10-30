@@ -44,7 +44,7 @@
     "express": "^4.22.2",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^8.24.1",
-    "nodemailer": "^9.0.1",
+    "nodemailer": "^10.1.4",
     "typescript": "^3.9.6",
     "winston": "^3.2.1"
   }
